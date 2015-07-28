@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/#{indexManagedBean.masterPage}.xhtml">
+            <ui:define name="content"><h:form id="form" >
+
+
+                    <p:tabView orientation="left">
+                        <p:tab title="Parçalar">
+                            <h3 style="margin-top:0">Basic</h3>
+                            <p:tabView>
+                                <p:tab title="Ekle">
+                                    <h:panelGrid columns="2" cellpadding="10" style="margin-bottom:10px" >
+                                        <h:outputLabel value="Parca Adi: "></h:outputLabel>
+                                        <h:inputText value="#{parcalarManagedBean.pm.parca_adi}"></h:inputText>
+                                        <h:outputLabel value="Fiyat : "></h:outputLabel>
+                                        <h:inputText value="#{parcalarManagedBean.pm.fiyat}"></h:inputText>
+                                        <p:outputLabel for="console" value="Kategori : " />
+                                        <h:selectOneMenu id="console" value="#{kategoriManagedBean.secili}" style="width:125px" >
+                                            <f:selectItems var="kategori" value="#{kategoriManagedBean.kAdGetir()}"  />
+                                        </h:selectOneMenu>
+                                        <p:outputLabel  value="Uretici : " />
+                                        <h:selectOneMenu  value="#{ureticiManagedBean.secili}" style="width:125px" >
+                                            <f:selectItems var="uretici" value="#{ureticiManagedBean.ureticiADGetir()}"   />
+                                        </h:selectOneMenu>
+                                        <p:outputLabel  value="Araba : " />
+                                        <h:selectOneMenu  value="#{arabaManagedBean.secili}" style="width:125px" >
+                                            <f:selectItems var="kategori" value="#{arabaManagedBean.arabaAdGetir()}"  />
+                                        </h:selectOneMenu>
+                                        <h:outputLabel value="Uretim Yili : "></h:outputLabel>
+                                        <h:inputText value="#{parcalarManagedBean.pm.uretimyili}"></h:inputText>
+
+
+                                    </h:panelGrid>
+                                    <h:commandButton value="Ekle" action="#{parcalarManagedBean.ekle()}"></h:commandButton>
+
+                                </p:tab>
+                                <p:tab title="Güncelle">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:dataGrid var="car" value="#{parcalarManagedBean.getir()}" columns="4" id="cars"  class="products-box">
+
+                                            <p:panel class="section group" style="border: none">
+                                                <h:panelGrid columns="1"  class="grid_1_of_5 images_1_of_5">
+                                                    <h:outputText value="#{car.parca_adi}" />
+                                                    <img src="#{car.res_yol}"/>
+
+                                                    <h:outputText value="#{car.uretimyili}" />
+                                                    <div class="button"><span><a href="singlepage.html">Read More</a></span>
+                                                        <p:commandLink style="background-position: left bottom;text-decoration: none !important;-moz-transition: background 0.2s ease;-o-transition: background 0.2s ease;
+                                                                       -webkit-transition: background 0.2s ease;" update=":form:carDetail1" oncomplete="PF('carDialog').show()" title="View Detail" value="Read More">
+
+                                                            <f:setPropertyActionListener value="#{car}" target="#{parcalarManagedBean.seciliParca}" />
+                                                        </p:commandLink></div>
+                                                </h:panelGrid>
+                                            </p:panel>
+
+                                        </p:dataGrid>
+
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="SiL">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:dataGrid var="car" value="#{parcalarManagedBean.getir()}" columns="4" id="carss"  class="products-box">
+
+                                            <p:panel class="section group" style="border: none">
+                                                <h:panelGrid columns="1"  class="grid_1_of_5 images_1_of_5">
+                                                    <h:outputText value="#{car.parca_adi}" />
+                                                    <img src="#{car.res_yol}"/>
+
+                                                    <h:outputText value="#{car.uretimyili}" />
+                                                    <div class="button"><span><a href="singlepage.html">Read More</a></span>
+                                                        <p:commandLink style="background-position: left bottom;text-decoration: none !important;-moz-transition: background 0.2s ease;-o-transition: background 0.2s ease;
+                                                                       -webkit-transition: background 0.2s ease;" update=":form:carDetail2" oncomplete="PF('carDialog').show()" title="View Detail" value="Read More">
+
+                                                            <f:setPropertyActionListener value="#{car}" target="#{parcalarManagedBean.seciliParca}" />
+                                                        </p:commandLink></div>
+                                                </h:panelGrid>
+                                            </p:panel>
+
+                                        </p:dataGrid>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </p:tab>
+                        <p:tab title="Stok">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:tabView>
+                                    <p:tab title="Ekle">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <h:outputLabel value="Parca Adi: "></h:outputLabel>
+                                            <h:selectOneMenu  value="#{parcalarManagedBean.secili}" style="width:125px" >
+                                                <f:selectItems var="parcaadi" value="#{parcalarManagedBean.parcalar}"  />
+                                            </h:selectOneMenu>
+                                            <h:outputLabel value="Adet : "></h:outputLabel>
+                                            <h:inputText value="#{stokManagedBean.adet}"></h:inputText>
+                                            <h:commandButton value="Ekle" action="#{stokManagedBean.ekle()}"></h:commandButton>
+                                        </h:panelGrid>
+                                    </p:tab>
+
+
+                                </p:tabView>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Duyuru">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:tabView>
+                                    <p:tab title="Ekle">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <h:outputLabel value="Duyuru: "></h:outputLabel>
+
+                                            <h:inputText value="#{duyuruManagedBean.duyuru}"></h:inputText>
+                                            <h:commandButton value="Ekle" action="#{duyuruManagedBean.duyuruEKle()}"></h:commandButton>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Güncelle">
+                                        <h:dataTable value="#{duyuruManagedBean.duyuruListele()}" var="eleman">
+                                            <h:column> <h:panelGrid columns="2" cellpadding="10">
+                                                    <h:outputLabel value=" Duyuru : "></h:outputLabel>
+                                                    <h:outputText value="#{eleman}"></h:outputText>
+                                                    <h:inputText value="#{duyuruManagedBean.duyuru}"></h:inputText>                                  
+
+                                                    <h:commandButton value="Güncelle" action="#{duyuruManagedBean.duyuruGuncelle()}"></h:commandButton>
+
+                                                </h:panelGrid></h:column>
+                                        </h:dataTable>
+                                    </p:tab>
+                                    <p:tab title="sil">
+                                       
+                                                <h:outputLabel value="Duyurular: "></h:outputLabel>
+                                                <h:selectOneMenu  value="#{duyuruManagedBean.duyuru}" style="width:125px" >
+                                                    <f:selectItems var="parcaadi" value="#{duyuruManagedBean.duyuruListele()}"  />
+                                            </h:selectOneMenu>
+                                                    <h:commandButton value="sil" action="#{duyuruManagedBean.duyuruSil()}"></h:commandButton>
+
+                                             
+                                    </p:tab>
+
+                                </p:tabView>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+
+                    </h:panelGrid>
+                    <p:dialog header="Parca Detay" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="carDetail1" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty parcalarManagedBean.seciliParca}" columnClasses="label,value">
+                                <f:facet name="header">
+                                    <img src="#{parcalarManagedBean.seciliParca.res_yol}"/>
+                                </f:facet>
+
+                                <h:outputLabel value="Parca Adi: "></h:outputLabel>
+                                <h:inputText value="#{parcalarManagedBean.seciliParca.parca_adi}"></h:inputText>
+                                <h:outputLabel value="Fiyat : "></h:outputLabel>
+                                <h:inputText value="#{parcalarManagedBean.seciliParca.fiyat}"></h:inputText>
+                                <p:outputLabel for="console" value="Kategori : " />
+                                <h:selectOneMenu id="console" value="#{kategoriManagedBean.secili}" style="width:125px" >
+                                    <f:selectItems var="kategori" value="#{kategoriManagedBean.kAdGetir()}"  />
+                                </h:selectOneMenu>
+                                <p:outputLabel  value="Uretici : " />
+                                <h:selectOneMenu  value="#{ureticiManagedBean.secili}" style="width:125px" >
+                                    <f:selectItems var="uretici" value="#{ureticiManagedBean.ureticiADGetir()}"   />
+                                </h:selectOneMenu>
+                                <p:outputLabel  value="Araba : " />
+                                <h:selectOneMenu  value="#{arabaManagedBean.secili}" style="width:125px" >
+                                    <f:selectItems var="kategori" value="#{arabaManagedBean.arabaAdGetir()}"  />
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Uretim Yili : "></h:outputLabel>
+                                <h:inputText value="#{parcalarManagedBean.seciliParca.uretimyili}"></h:inputText>
+
+
+
+                            </p:panelGrid>
+                            <h:commandButton value="Güncelle" action="#{parcalarManagedBean.guncelle()}" ><f:setPropertyActionListener value="#{indexManagedBean.seciliParca}" target="#{sepetManagedBean.p}" /></h:commandButton>
+                        </p:outputPanel>
+                    </p:dialog>
+                    <p:dialog header="Parca Detay" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="carDetail2" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty parcalarManagedBean.seciliParca}" columnClasses="label,value">
+                                <f:facet name="header">
+                                    <img src="#{parcalarManagedBean.seciliParca.res_yol}"/>
+                                </f:facet>
+
+                                <h:outputLabel value="Parca Adi: "></h:outputLabel>
+                                <h:outputText value="#{parcalarManagedBean.seciliParca.parca_adi}"></h:outputText>
+
+
+
+                            </p:panelGrid>
+                            <h:commandButton value="sil" action="#{parcalarManagedBean.sil()}" ><f:setPropertyActionListener value="#{indexManagedBean.seciliParca}" target="#{sepetManagedBean.p}" /></h:commandButton>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form></ui:define></ui:composition>
+    </h:body>
+</html>
+

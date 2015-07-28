@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+      <ui:composition template="/#{indexManagedBean.masterPage}.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <div class="products-box">
+                        <div class="products">  
+                            <h5><span>En Çok </span>Satılan Farlar</h5>
+                            <p:dataGrid var="car" value="#{carLightsManagedBean.snc}" columns="4" id="cars"  class="products-box">
+                                
+                                <p:panel class="section group" style="border: none">
+                                    <h:panelGrid columns="1"  class="grid_1_of_5 images_1_of_5">
+                                        <h:outputText value="#{car.parca_adi}" />
+                                        <img src="#{car.res_yol}"/>
+                                        
+                                        <h:outputText value="#{car.uretimyili}" />
+                                           <div class="button"><span><a href="singlepage.html">Read More</a></span>
+                                               <p:commandLink style="background-position: left bottom;text-decoration: none !important;-moz-transition: background 0.2s ease;-o-transition: background 0.2s ease;
+	-webkit-transition: background 0.2s ease;" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" value="Read More">
+                                            
+                                                   <f:setPropertyActionListener value="#{car}" target="#{carLightsManagedBean.seciliParca}" />
+                                        </p:commandLink></div>
+                                    </h:panelGrid>
+                                </p:panel>
+
+                            </p:dataGrid>
+                            <p:dialog header="Parca Detay" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                <p:outputPanel id="carDetail" style="text-align:center;">
+                                    <p:panelGrid  columns="2" rendered="#{not empty carLightsManagedBean.seciliParca}" columnClasses="label,value">
+                                        <f:facet name="header">
+                                            <img src="#{carLightsManagedBean.seciliParca.res_yol}"/>
+                                        </f:facet>
+
+                                        <h:outputText value="Id:" />
+                                        <h:outputText value="#{carLightsManagedBean.seciliParca.parca_id}" />
+
+                                        <h:outputText value="Uretim Yili" />
+                                        <h:outputText value="#{carLightsManagedBean.seciliParca.uretimyili}" />
+
+                                        <h:outputText value="Adi:" />
+                                        <h:outputText value="#{carLightsManagedBean.seciliParca.parca_adi}"/>
+
+                                        <h:outputText value="Fiyat" />
+                                        <h:outputText value="$#{carLightsManagedBean.seciliParca.fiyat}" />
+                                        
+                                 
+                                    </p:panelGrid>
+                                    <h:commandButton value="Sepete Ekle" action="#{sepetManagedBean.SepeteEkle()}" ><f:setPropertyActionListener value="#{carLightsManagedBean.seciliParca}" target="#{sepetManagedBean.p}" /></h:commandButton>
+                                </p:outputPanel>
+                            </p:dialog>
+                            
+                           
+                        </div>
+                    </div>
+
+                    <div style="width:100px; background:gold; border:1px solid black; float:right "><marquee align="right" scrollamount="1" height="30" width="100%" direction="up" scrolldelay="1">dasdasd</marquee>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

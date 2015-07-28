@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/#{indexManagedBean.masterPage}.xhtml">
+             <ui:define name="content">
+                
+       <h:form id="form">
+           <p:dataGrid var="car" value="#{sepetManagedBean.sepet}" columns="3"  
+        rows="12" paginator="true" id="cars"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+ 
+        <f:facet name="header">
+            Parts for Sale
+        </f:facet>
+ 
+               <p:panel header="#{car.parca_id}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+               <img src="#{car.res_yol}"/>
+ 
+                <h:outputText value="#{car.uretimyili}" />
+ 
+                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                    <h:outputText styleClass="ui-icon ui-icon-remove" style="margin:0 auto;" />
+                    <f:setPropertyActionListener value="#{car}" target="#{sepetManagedBean.secili}" />
+                </p:commandLink>
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+           <h:commandButton value="satişi tamamla" ></h:commandButton>
+ 
+    <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty sepetManagedBean.secili}" columnClasses="label,value">
+                <f:facet name="header">
+                    <p:graphicImage name="#{sepetManagedBean.secili.res_yol}"/> 
+                </f:facet>
+ 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{sepetManagedBean.secili.parca_id}" />
+ 
+                <h:outputText value="Year" />
+                <h:outputText value="#{sepetManagedBean.secili.uretimyili}" />
+ 
+                <h:outputText value="Name:" />
+                <h:outputText value="#{sepetManagedBean.secili.parca_adi}"  />
+ 
+                <h:outputText value="Price" />
+                <h:outputText value="$#{sepetManagedBean.secili.fiyat}" />
+            </p:panelGrid>
+             <h:commandButton value="Sil" action="#{sepetManagedBean.SepetenSil()}" ><f:setPropertyActionListener value="#{indexManagedBean.seciliParca}" target="#{sepetManagedBean.p}" /></h:commandButton>
+                            
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+                 </ui:define></ui:composition>
+    </h:body>
+</html>
+
